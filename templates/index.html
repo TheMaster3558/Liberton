@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>Liberton</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/style.css">
+
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  {% if notify %}
+    <div class="success">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Added to cart
+  </div>
+  {% elif just_checked_out %}
+  <div class="success">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Thank you for buying at Liberton!
+  </div>
+  {% elif failed %}
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      Make sure to fill in the dates
+    </div>
+  {% elif check_in_after %}
+  <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      You cannot check in after you check out
+    </div>
+  {% elif past %}
+  div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      That date already has happened
+    </div>
+  {% endif %}
+  
+  <header class="header" id="navigation-menu">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo"> <img src="static/logo.png" align="right" alt=""> </a>
+<!-- Navigation Buttons -->
+        <ul class="nav-menu">
+          <li> <a href="#home" class="nav-link">Home</a> </li>
+          <li> <a href="#about" class="nav-link">About</a> </li>
+          <li> <a href="#rooms" class="nav-link">Rooms</a> </li>
+          <li> <a href="#restaurant" class="nav-link">Restaurant</a> </li>
+          <li> <a href="#gallery" class="nav-link">Gallery</a> </li>
+          <li> <a href="#contact" class="nav-link">Contact</a> </li>
+          <li>
+            <form action="/cart" method="get">
+              <button type="submit" class="nav-link">Cart</button>
+            </form>
+          </li>
+        </ul>
+
+        <div class="hambuger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="home" id="home">
+    <div class="head_container">
+      <div class="box">
+        <div class="text">
+          <h1>An Urban Retreat in the Pacific Northwest.</h1>
+          <p>  </p>
+        </div>
+      </div>
+      <div class="image">
+        <img src="static/home1.jpg" class="slide">
+      </div>
+      <div class="image_item">
+        <img src="static/home1.jpg" alt="" class="slide active" onclick="img('static/home1.jpg')">
+        <img src="static/home2.jpg" alt="" class="slide active" onclick="img('static/home2.jpg')">
+        <img src="static/home4.jpg" alt="" class="slide active" onclick="img('static/home4.jpg')">
+      </div>
+    </div>
+  </section>
+  <script>
+    function img(anything) {
+      document.querySelector('.slide').src = anything;
+    }
+
+    function change(change) {
+      const line = document.querySelector('.image');
+      line.style.background = change;
+    }
+  </script>
+  <section class="book">
+    <form action="/cart" method="post">
+    <div>
+    <div class="container flex">
+      <div class="input grid">
+        <div>
+          <label for="room-select">Choose a room:</label>
+          <select name="Select a room" id="room-select">
+            <option value="cozy">
+              Cozy
+            </option>
+            <option value="suite">
+              Suite
+            </option>
+            <option value="deluxe">
+              Deluxe
+            </option>
+          </select>
+        </div>
+        <div class="box">
+          <label>Check-in:</label>
+          <input type="date" name="check_in">
+        </div>
+        <div class="box">
+          <label>Check-out:</label>
+          <input type="date" name="check_out">
+        </div>
+      <div>
+      </div>
+        <button type="submit">Book</button>
+      </div>
+      </div>
+    </form>
+  </section>
+  <section class="about top" id="about">
+    <div class="container flex">
+      <div class="left">
+        <div class="img">
+          <img src="static/hotel1.png" alt="" class="image1" width="2000px" height="1334">
+          <img src="static/hotel2.png" alt="" class="image2" height="400px", width="560px">
+        </div>
+      </div>
+      <div class="right">
+        <div class="heading">
+          <h5>RAISING COMFORT TO THE HIGHEST LEVEL</h5>
+          <h2>Welcome to Liberton Hotel Resort</h2>
+          <p> The Liberton is a luxury hotel in the heart of downtown Seattle. Surrounded by snow-capped peaks of the Olympic mountains, deep-blue waters of the of the Puget Sound, and swaths of evergreen forests encircling the city, Seattle is as beautiful as it is trendy. In the vicinity of the hotel we have the Seattle Art Museum, Seattle Ferris Wheel, Fisherman's Wharf and more. Spend the day hiking up nearby Mount Rainier or kayaking on Lake Union. Come nightfall, meet us at the Blue Arrow Bar & Grill, and let our chefs show you all the local flavours of the emerald city.</p>
+          <p>
+
+
+
+            
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="wrapper top">
+<div class="image">
+        <img src="static/hotel3.png" class="slide" height=468 width= {{ width }}>
+      </div>
+    
+    <div class="container">
+      <div class="text">
+        <h2>Our Amenities</h2>
+        <p>The Liberton has a host of luxury amenities  </p>
+
+        <div class="content">
+          <div class="box flex">
+            <i class="fas fa-swimming-pool"></i>
+            <span>Swimming pool</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-dumbbell"></i>
+            <span>Gym</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-spa"></i>
+            <span>Spa & massage</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-ship"></i>
+            <span>Boat Tours</span>
+          </div>
+          <div class="box flex">
+            <i class="fa fa-road"></i>
+            <span> Old Seattle Underground Tour</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-microphone"></i>
+            <span>Conference room</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-water"></i>
+            <span>Aquarium</span>
+          </div>
+          <div class="box flex">
+            <i class="fas fa-croissant"></i>
+            <span>Complementary Breakfast</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="room top" id="room">
+    <div class="container">
+      <div class="heading_top flex1">
+        <div class="heading" id="rooms">
+          <h5>RAISING COMFORT TO THE HIGHEST LEVEL</h5>
+          <h2>Rooms & Suites</h2>
+        </div>
+        <div class="button">
+        </div>
+      </div>
+
+      <div class="content grid">
+        <div class="box">
+          <div class="img">
+            <img src="static/r1.jpg" alt="">
+          </div>
+          <div class="text">
+            <h3>Liberton Cozy</h3>
+            <p> <span>$</span>299 <span>/per night</span> <br>
+              <span>The Liberton Cozy is a one room suite with two twin beds and an amazing view of Seattle downtown. The room includes acess to the hotel gym and free breakfast. </span>
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img">
+            <img src="static/r2.jpg" alt="">
+          </div>
+          <div class="text">
+            <h3>Liberton Suite</h3>
+            <p> <span>$</span>449<span>/per night</span>  <br>
+              <span>The liberton suite is a deluxe two room suite with a king bedroom. Additionaly it has a seperate living room that has a large TV as well as a foosball table. It has a breathtaking view of the olympic mountains. </span>
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img">
+            <img src="static/r3.jpg" alt="">
+          </div>
+          <div class="text">
+            <h3>Liberton Emerald Suite</h3>
+            <p> <span>$</span>749 <span>/per night</span>  <br>
+              <span>The Liberton Emerald Suite offers the highest tier of luxury. The Suite contains 3 rooms with a large plasma screen TV in the living room. It comes outfitted with a full kitchen and a view of the Puget Sound. We include a complimentary tour of downtown Seattle and a day trip to Olympic National Park.  </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="wrapper wrapper2 top">
+    <div class="image">
+        <img src="static/people1.png" class="slide" height=468 width= {{ width }}>
+      </div>
+    <div class="container">
+      
+      <div class="text">
+        <div class="heading">
+          <h5>AT THE HEART OF COMMUNICATION</h5>
+          <h2>People Say</h2>
+        </div>
+        <div class="para">
+          <p>"I recently stayed at the Liberton Hotel in Seattle and was blown away by the level of luxury and service provided. The room was spacious and comfortable with all the amenities I wanted. The hotel was in the heart of the city with easy access to top attractions. I would recommend the Liberton Hotel to anyone looking for a quality hotel." </p>
+
+          <div class="box flex">
+            <div class="img">
+              <img src="static/c.JPG" alt="" class="wrapper2img">
+            </div>
+            <div class="name">
+              <h5>Aarush Kapoor</h5>
+              <h5>WASHINGTON</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="restaurant top" id="restaurant">
+    <div class="container flex">
+      <div class="left">
+        <img src="static/re.jpg" alt="">
+      </div>
+      <div class="right">
+        <div class="text">
+          <h2>The Blue Arrow Bar and Grill</h2>
+          <p> The Blue Arrow features local specialties including salmon, crab, and clam fresh from the Pacific Ocean, as well as seasonally inspired cuisine crafted with only the freshest ingredients obtainable. At the Liberton, every hour is happy hour! Enjoy exclusive northwest wines decadent dishes like our Dungenous Crab Soup, Grilled King Salmon, Molten Lava Cake, and more.  </p>
+        </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    var accItem = document.getElementsByClassName('accordionItem');
+    var accHD = document.getElementsByClassName('accordionIHeading');
+
+    for (i = 0; i < accHD.length; i++) {
+      accHD[i].addEventListener('click', toggleItem, false);
+    }
+
+    function toggleItem() {
+      var itemClass = this.parentNode.className;
+      for (var i = 0; i < accItem.length; i++) {
+        accItem[i].className = 'accordionItem close';
+      }
+      if (itemClass == 'accordionItem close') {
+        this.parentNode.className = 'accordionItem open';
+      }
+    }
+  </script>
+
+
+
+  <section class="gallary mtop " id="gallery">
+    <div class="container">
+      <div class="heading_top flex1">
+        <div class="heading">
+          <h5>WELCOME TO OUR PHOTO GALLERY</h5>
+          <h2>Photo Gallery of Our Hotel</h2>
+        </div>
+        <div class="button">
+        </div>
+      </div>
+
+      <div class="owl-carousel owl-theme">
+        <div class="item">
+          <img src="static/gallery2 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery1 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery3 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery4 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery5 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery6 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery7 Cropped.jpg" alt="">
+        </div>
+        <div class="item">
+          <img src="static/gallery8 Cropped.jpg" alt="">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script>
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      dots: false,
+      navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"],
+      responsive: {
+        0: {
+          items: 1
+        },
+        768: {
+          items: 2
+        },
+        1000: {
+          items: 4
+        }
+      }
+    })
+  </script>
+
+
+
+  <section class="map top">
+    <iframe src="https://maps.google.com/maps?q=1530%203rd%20Ave,%Seattle,%20Wa%2098101&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;"
+      allowfullscreen="" loading="lazy"></iframe>
+  </section>
+
+
+  <footer>
+    <div class="container grid top">
+      <div class="box">
+        <img src="static/logo.png" />
+        <p>  </p>
+
+      </div>
+
+      <div class="box">
+        <h3>Recent News</h3>
+
+        <ul>
+          <li>Our Secret Island Boat Tour Is Just for You</li>
+          <li>Chill and Escape in Our Natural Shelters</li>
+          <li>September in Liberton Hotel</li>
+          <li>Live Music Concerts at Liberton</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3>For Customers</h3>
+        <ul>
+          <li>About Liberton</li>
+          <li>Customer Care/Help</li>
+          <li>Corporate Accounts</li>
+          <li>Financial Information</li>
+          <li>Terms & Conditions</li>
+        </ul>
+      </div>
+
+      <div class="box" id="contact">
+        <h3>Contact Us</h3>
+
+        <ul>
+          <li>1530 3rd Ave, Seattle, WA 98101</li>
+          <li><i class="far fa-envelope"></i> contactus@liberton.com</li>
+          <li><i class="far fa-phone-alt"></i> 425-589-1718</li>
+          <li><i class="far fa-phone-alt"></i> 425-504-1590</li>
+          <li><i class="far fa-comments"></i> 24/ 7 Customer Services </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
